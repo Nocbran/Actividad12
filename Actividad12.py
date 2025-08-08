@@ -17,8 +17,8 @@ def busqueda(lista, objetivo):
     return -1
 
 repartidores = {}
-
-n= int(input("Cuantos repartidores desea ingresar: "))
+print("*******BIENVENIDO AL CONTROL DE ENTREGAS*******")
+n= int(input("\nCuantos repartidores desea ingresar: "))
 for _ in range(n):
     while True:
         nombre = input("Nombre del repartidor: ")
@@ -44,7 +44,7 @@ for _ in range(n):
             break
 
     repartidores[nombre] = {
-        "informacion" : {
+        "info" : {
             "paquetes" : paquetes,
             "zona" : zona
         }
@@ -54,16 +54,30 @@ print("\n*******REGISTRO ORIGINAL*******")
 print(repartidores)
 
 listaOrdenada = [
-    (nombre,datos["informacion"]["paquetes"],datos["informacion"]["zona"])
+    (nombre,datos["info"]["paquetes"],datos["info"]["zona"])
     for nombre,datos in repartidores.items()
 ]
 ordenados = quick_sort(listaOrdenada)
 
 print("\n*******RANKING*******")
-for nombre in range(listaOrdenada):
+for nombre, paquetes, zona in ordenados:
     print(f"{nombre} - {paquetes} Paquetes - Zona: {zona}")
 
 print("\n*******BUSCAR REPARTIDOR*******")
 buscado = input("Nombre del repartidor: ")
 buscadoLista = list(repartidores.keys())
 pos = busqueda(buscadoLista,buscado)
+
+if pos != -1:
+    datos = repartidores[buscadoLista[pos]]["info"]
+    print(f"{buscadoLista} entrego {datos['paquetes']} paquetes en la zona {datos['zona']}")
+else:
+    print(f"No se encontro el repartidor '{buscado}'.")
+
+print("*******ESTADISTICA*******")
+PaquetesTotales = sum({d["info"]["paquetes"] for d in repartidores.values()})
+promedio = PaquetesTotales / len(repartidores)
+
+print(f"Total de paquetes entregados: {PaquetesTotales}")
+print(f"Promedio de entregas: {promedio:.2f}")
+
