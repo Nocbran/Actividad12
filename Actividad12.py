@@ -26,7 +26,22 @@ for _ in range(n):
             print("Este nombre ya se encuentra registrado.")
         else:
             break
+    while True:
+        try:
+            paquetes = int(input("Cuantos paquetes entrego? "))
+            if paquetes < 0:
+                print("No se permiten cantidades negativas.")
+            else:
+                break
+        except ValueError:
+            print("Ingrese un numero valido.")
 
+    while True:
+        zona = input("Zona asignada: ")
+        if zona == "":
+            print("La zona no puede estar vacia.")
+        else:
+            break
 
     repartidores[nombre] = {
         "informacion" : {
@@ -34,7 +49,8 @@ for _ in range(n):
             "zona" : zona
         }
     }
-print("\n*******REGISTRO DE REPARTIDORES*******")
+
+print("\n*******REGISTRO ORIGINAL*******")
 print(repartidores)
 
 listaOrdenada = [
@@ -43,5 +59,11 @@ listaOrdenada = [
 ]
 ordenados = quick_sort(listaOrdenada)
 
-for nombre in range(listaOrdenada)
+print("\n*******RANKING*******")
+for nombre in range(listaOrdenada):
+    print(f"{nombre} - {paquetes} Paquetes - Zona: {zona}")
 
+print("\n*******BUSCAR REPARTIDOR*******")
+buscado = input("Nombre del repartidor: ")
+buscadoLista = list(repartidores.keys())
+pos = busqueda(buscadoLista,buscado)
